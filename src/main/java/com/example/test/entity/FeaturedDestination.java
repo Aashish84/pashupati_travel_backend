@@ -17,4 +17,5 @@ public class FeaturedDestination {
     @Column(columnDefinition = "TEXT")
     private String description;
     private String image;
+    private int price;
 }
