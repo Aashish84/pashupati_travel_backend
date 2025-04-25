@@ -21,10 +21,8 @@ public class FeaturedDestinationController {
     private final FeaturedDestinationService featuredDestinationService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<FeaturedDestination> addFeaturedDestination(@RequestPart String featuredDestinationString, @RequestPart("image") MultipartFile image) throws JsonProcessingException {
+    public ResponseEntity<FeaturedDestination> addFeaturedDestination(@RequestPart String featuredDestinationString, @RequestPart(value = "image" , required = false) MultipartFile image) throws JsonProcessingException {
         FeaturedDestination featuredDestination = objectMapper.readValue(featuredDestinationString, FeaturedDestination.class);
-        System.out.println(featuredDestination);
-        System.out.println(image.getContentType());
         FeaturedDestination result = featuredDestinationService.add(featuredDestination , image);
         return ResponseEntity.ok(result);
     }
@@ -35,4 +33,11 @@ public class FeaturedDestinationController {
         return ResponseEntity.ok(allData);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteFeaturedDestinationHardDelete(@PathVariable long id) {
+        boolean delete = featuredDestinationService.delete(id);
+        return ResponseEntity.ok(delete);
+    }
+
+//    @PutMapping
 }

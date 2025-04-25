@@ -74,6 +74,7 @@ public class FileHelper {
                 File fileToDelete = new File(filePath);
                 if (fileToDelete.exists()) {
                     Files.deleteIfExists(Paths.get(filePath));
+                    System.out.println("FILE DELETED");
                     return true;
                 }
                 return false; // File doesn't exist
