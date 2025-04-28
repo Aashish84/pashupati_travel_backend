@@ -1,7 +1,9 @@
 package com.example.test.controller;
 
+import com.example.test.entity.Banner;
 import com.example.test.entity.FeaturedDestination;
 import com.example.test.helper.FileHelper;
+import com.example.test.service.BannerService;
 import com.example.test.service.FeaturedDestinationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,7 @@ public class GenericController {
 
     private final FileHelper fileHelper;
     private final FeaturedDestinationService featuredDestinationService;
+    private final BannerService bannerService;
 
     @GetMapping("/home")
     public String home() {
@@ -38,6 +41,12 @@ public class GenericController {
     @GetMapping("/featuredDestination")
     public ResponseEntity<List<FeaturedDestination>> getFeaturedDestinations() {
         List<FeaturedDestination> allData = featuredDestinationService.getAll();
+        return ResponseEntity.ok(allData);
+    }
+
+    @GetMapping("/banner")
+    public ResponseEntity<List<Banner>> getBanners() {
+        List<Banner> allData = bannerService.getAll();
         return ResponseEntity.ok(allData);
     }
 }
