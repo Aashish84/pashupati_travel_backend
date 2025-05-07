@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/featuredDestination")
 @AllArgsConstructor
+//@CrossOrigin
 public class FeaturedDestinationController {
 
     private final ObjectMapper objectMapper;

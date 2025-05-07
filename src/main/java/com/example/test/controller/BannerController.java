@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/banner")
 @AllArgsConstructor
+//@CrossOrigin
 public class BannerController {
     private final ObjectMapper objectMapper;
     private final BannerService bannerService;

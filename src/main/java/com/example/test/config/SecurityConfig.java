@@ -23,24 +23,22 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JWTFilter jwtFilter;
-    private final CustomCorsConfig corsConfig;
 
-    public SecurityConfig(UserDetailsService userDetailsService, JWTFilter jwtFilter, CustomCorsConfig corsConfig) {
+    public SecurityConfig(UserDetailsService userDetailsService, JWTFilter jwtFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtFilter = jwtFilter;
-        this.corsConfig = corsConfig;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
                         request
                                 .requestMatchers("/register" , "/isLogin" , "/api/**").permitAll()
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
-                .cors(c -> c.configurationSource(corsConfig))
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
